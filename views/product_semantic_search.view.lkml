@@ -46,7 +46,7 @@ view: product_semantic_search {
     ,base.category as matched_product_category
     ,base.brand as matched_product_brand
     FROM VECTOR_SEARCH(
-      TABLE ${product_embeddings.SQL_TABLE_NAME}, 'ml_generate_embedding_result',
+      TABLE ${product_embeddings.SQL_TABLE_NAME}, 'text_embedding',
       (
         SELECT ml_generate_embedding_result, content AS query
         FROM ML.GENERATE_EMBEDDING(
