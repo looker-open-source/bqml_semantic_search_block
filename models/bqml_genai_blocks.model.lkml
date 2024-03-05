@@ -24,12 +24,12 @@ explore: audience_clustering {
     sql_on: ${audience_clustering.centroid_id} = ${audience_labeling.centroid_id} ;;
   }
 }
-explore: product_semantic_search {}
+# explore: product_semantic_search {}
 
-explore: order_items {
-  join: product_semantic_search {
+explore: product_semantic_search {
+  join: order_items {
     type: left_outer
-    relationship: many_to_one
+    relationship: one_to_many
     sql_on: ${order_items.product_id} = ${product_semantic_search.matched_product_id} ;;
   }
 
