@@ -11,7 +11,8 @@ view: product_embeddings_model {
 
 view: product_embeddings {
   derived_table: {
-    datagroup_trigger: ecomm_monthly
+    datagroup_trigger: ecomm_daily
+    publish_as_db_view: yes
     sql_create: CREATE OR REPLACE TABLE ${SQL_TABLE_NAME} AS
     SELECT ml_generate_embedding_result as text_embedding
       , * FROM ML.GENERATE_EMBEDDING(
