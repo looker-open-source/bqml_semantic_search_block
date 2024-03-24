@@ -2,7 +2,7 @@
 view: products {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `looker-private-demo.thelook_ecommerce.products` ;;
+  sql_table_name: `bigquery-public-data.thelook_ecommerce.products` ;;
   drill_fields: [id]
 
   # This primary key is the unique key for this table in the underlying database.

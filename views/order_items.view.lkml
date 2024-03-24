@@ -2,7 +2,7 @@
 view: order_items {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `looker-private-demo.thelook_ecommerce.order_items` ;;
+  sql_table_name: `bigquery-public-data.thelook_ecommerce.order_items` ;;
   drill_fields: [id]
 
   # This primary key is the unique key for this table in the underlying database.
@@ -47,6 +47,25 @@ view: order_items {
     sql: ${TABLE}.product_id ;;
   }
 
+  dimension: matched_product {
+    type: yesno
+    sql: ${product_id} IN (
+      SELECT matched_product_id
+      FROM ${product_semantic_search.SQL_TABLE_NAME}
+    );;
+  }
+
+  dimension: matched_user {
+    type: yesno
+    sql: ${user_id} IN (
+      SELECT DISTINCT ${user_id}
+      FROM ${product_semantic_search.SQL_TABLE_NAME} as product
+      LEFT OUTER JOIN ${order_items.SQL_TABLE_NAME} as orders
+        ON product.matched_product_id = orders.product_id
+    )
+    ;;
+  }
+
   dimension_group: returned {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
@@ -64,7 +83,15 @@ view: order_items {
 
   measure: total_sale_price {
     type: sum
+    value_format_name: usd
     sql: ${sale_price} ;;  }
+
+  measure: matched_total_sale_price {
+    type: sum
+    value_format_name: usd
+    filters: [matched_product: "yes"]
+    sql: ${sale_price} ;;  }
+
   measure: average_sale_price {
     type: average
     sql: ${sale_price} ;;  }
@@ -85,16 +112,22 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: matched_count {
+    type: count_distinct
+    filters: [matched_product: "yes"]
+    sql: ${TABLE}.id ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	id,
-	users.last_name,
-	users.id,
-	users.first_name,
-	products.name,
-	products.id
-	]
+  id,
+  users.last_name,
+  users.id,
+  users.first_name,
+  products.name,
+  products.id
+  ]
   }
 
 }

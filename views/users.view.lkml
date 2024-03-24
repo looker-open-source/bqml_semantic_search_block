@@ -2,7 +2,7 @@
 view: users {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `looker-private-demo.thelook_ecommerce.users` ;;
+  sql_table_name: `bigquery-public-data.thelook_ecommerce.users` ;;
   drill_fields: [id]
 
   # This primary key is the unique key for this table in the underlying database.
@@ -20,6 +20,11 @@ view: users {
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+  }
+
+  dimension: age {
+    type: string
+    sql: ${TABLE}.age ;;
   }
 
   dimension: country {
@@ -99,5 +104,11 @@ view: users {
   measure: count {
     type: count
     drill_fields: [id, last_name, first_name, events.count, order_items.count]
+  }
+
+  measure: matched_audience_size {
+    type: count_distinct
+    filters: [order_items.matched_product: "yes"]
+    sql: ${id} ;;
   }
 }
