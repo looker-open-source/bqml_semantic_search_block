@@ -55,13 +55,25 @@ view: order_items {
     );;
   }
 
+  # dimension: matched_user {
+  #   type: yesno
+  #   sql: ${user_id} IN (
+  #     SELECT DISTINCT ${user_id}
+  #     FROM ${product_semantic_search.SQL_TABLE_NAME} as product
+  #     LEFT OUTER JOIN ${order_items.SQL_TABLE_NAME} as orders
+  #       ON product.matched_product_id = orders.product_id
+  #   )
+  #   ;;
+  # }
   dimension: matched_user {
     type: yesno
-    sql: ${user_id} IN (
-      SELECT DISTINCT ${user_id}
-      FROM ${product_semantic_search.SQL_TABLE_NAME} as product
-      LEFT OUTER JOIN ${order_items.SQL_TABLE_NAME} as orders
+    sql:
+    EXISTS (
+        SELECT 1
+        FROM ${product_semantic_search.SQL_TABLE_NAME} as product
+        LEFT OUTER JOIN ${order_items.SQL_TABLE_NAME} as orders
         ON product.matched_product_id = orders.product_id
+        WHERE orders.user_id = ${user_id}
     )
     ;;
   }
@@ -89,7 +101,7 @@ view: order_items {
   measure: matched_total_sale_price {
     type: sum
     value_format_name: usd
-    filters: [matched_product: "yes"]
+    filters: [matched_user: "yes"]
     sql: ${sale_price} ;;  }
 
   measure: average_sale_price {
