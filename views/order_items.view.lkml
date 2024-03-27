@@ -108,6 +108,12 @@ view: order_items {
     type: average
     sql: ${sale_price} ;;  }
 
+  measure: matched_average_sale_price {
+    type: average
+    value_format_name: usd
+    filters: [matched_user: "yes"]
+    sql: ${sale_price} ;;  }
+
   dimension_group: shipped {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]

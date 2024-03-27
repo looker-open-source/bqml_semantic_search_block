@@ -27,6 +27,13 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    tiers: [18,24,35,45,55,65]
+    sql: ${TABLE}.age ;;
+    style: integer
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
