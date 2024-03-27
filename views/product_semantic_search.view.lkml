@@ -77,6 +77,17 @@ view: product_semantic_search {
     type: number
   }
 
+  dimension: product_description_chosen {
+    type: string
+    sql: {% parameter product_description %} ;;
+  }
+
+  dimension: product_matches_chosen {
+    type: string
+    sql: {% parameter product_matches %} ;;
+  }
+
+
   dimension: matched_product {
     type: string
     sql: ${TABLE}.matched_product ;;

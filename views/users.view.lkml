@@ -82,9 +82,34 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
+  dimension: approx_latitude {
+    label: "Approx Latitude"
+    type: number
+    sql: round(${TABLE}.latitude,1) ;;
+  }
+
+  dimension: approx_longitude {
+    label: "Approx Longitude"
+    type: number
+    sql:round(${TABLE}.longitude,1) ;;
+  }
+
+  dimension: approx_location {
+    label: "Approx Location"
+    type: location
+    sql_latitude: ${approx_latitude} ;;
+    sql_longitude: ${approx_longitude} ;;
+
+  }
+
   dimension: postal_code {
     type: string
     sql: ${TABLE}.postal_code ;;
+  }
+
+  dimension: zip_code {
+    type: zipcode
+    sql: ${postal_code} ;;
   }
 
   dimension: state {
