@@ -71,4 +71,5 @@ view: products {
     type: count
     drill_fields: [id, name, order_items.count]
   }
+
 }
