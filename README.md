@@ -1,51 +1,110 @@
-<h1><span style="color:#2d7eea">README - Your LookML Project</span></h1>
+# Looker x GenAI BigQuery Semantic Search Block
 
-<h2><span style="color:#2d7eea">LookML Overview</span></h2>
+### Description
+Seamlessly integrate BigQuery's cutting-edge semantic search capabilities directly into your Looker instance. Empower users to perform dynamic, natural language similarity searches, unlocking innovative use cases on your enterprise data.
 
-LookML is a data modeling language for describing dimensions, fields, aggregates and relationships based on SQL.
+### Key Features
+| Feature | Description |
+| --- | --- |
+| Effortless Setup | Get started quickly with well-documented installation and configuration|
+| Dynamic Natural Language Queries | Grant users the ability to search across any field or combination | of fields in Looker Explores using natural language.
+| Real-time Search | Receive search results in real time, enabling fast analysis and decision-making |
+| Customizable | Adapt the block to your specific dataset and fine-tune search parameters as needed |
 
-LookML is powerful because it:
+#### What is BigQuery Semantic Search?
 
-- **Is all about reusability**: Most data analysis requires the same work to be done over and over again. You extract
-raw data, prepare it, deliver an analysis... and then are never able touse any of that work again. This is hugely
-inefficient, since the next analysis often involves many of the same steps. With LookML, once you define a
-dimension or a measure, you continue to build on it, rather than having to rewrite it again and again.
-- **Empowers end users**:  The data model that data analysts and developers create in LookML condenses and
-encapsulates the complexity of SQL, it and lets analysts get the knowledge about what their data means out of
-their heads so others can use it. This enables non-technical users to do their jobs &mdash; building dashboards,
-drilling to row-level detail, and accessing complex metrics &mdash; without having to worry about what’s behind the curtain.
-- **Allows for data governance**: By defining business metrics in LookML, you can ensure that Looker is always a
-credible single source of truth.
+BigQuery's semantic search employs advanced machine learning models from Vertex AI to enable similarity-based searches on your data. This functionality allows users to:
 
-The Looker application uses a model written in LookML to construct SQL queries against a particular database that
-business analysts can [Explore](https://cloud.google.com/looker/docs/r/exploring-data) on. For an overview on the basics of LookML, see [What is LookML?](https://cloud.google.com/looker/docs/r/what-is-lookml)
+* Find Relevant Information: Retrieve relevant data even without exact keyword matches.
+* Enhance Large Language Models (LLMs): Employ semantic search to provide context for LLMs (Retrieval-Augmented Generation).
+* Unleash Multimodal AI Applications: Combine structured and unstructured data with generative AI.
 
-<h2><span style="color:#2d7eea">Learn to Speak Looker</span></h2>
+#### What this Block Enables
 
-A LookML project is a collection of LookML files that describes a set of related [views](https://cloud.google.com/looker/docs/r/terms/view-file), [models](https://cloud.google.com/looker/docs/r/terms/model-file), and [Explores](https://cloud.google.com/looker/docs/r/terms/explore).
-- A [view](https://cloud.google.com/looker/docs/r/terms/view-file) (.view files) contains information about how to access or calculate information from each table (or
-across multiple joined tables). Here you’ll typically define the view, its dimensions and measures, and its field sets.
-- A [model](https://cloud.google.com/looker/docs/r/terms/model-file) (.model file) contains information about which tables to use and how they should be joined together.
-Here you’ll typically define the model, its Explores, and its joins.
-- An [Explore](https://cloud.google.com/looker/docs/r/terms/explore) is the starting point for business users to query data, and it is the end result of the LookML you are
-writing. To see the Explores in this project, select an Explore from the Explore menu.
+Our Looker Block unlocks the power of semantic search within your Looker environment. Key benefits include:
 
-<h2><span style="color:#2d7eea">Exploring Data</span></h2>
+* Intuitive Search Interface: Eliminate the need to write SQL queries for semantic searches.
+* Data Exploration: Uncover new insights within your data through semantically related searches.
+* Streamlined Analysis: Reduce the time from query to insight, accelerating data utilization.
 
-Ad-hoc data discovery is one of Looker’s most powerful and unique features. As you evaluate use cases for your
-trial, consider what business areas you would like to explore. Open the Explore menu in the main navigation to see
-the Explores you are building.
+#### Example Use Case: eCommerce Product Discovery
 
-<h2><span style="color:#2d7eea">The Development Workflow</span></h2>
+Imagine using semantic search on an eCommerce dataset. Users can input natural language searches like "casual summer dresses" or "vintage electronics" and receive highly relevant product recommendations immediately. This enables:
 
-To support a multi-developer environment, Looker is integrated with Git for version control. Follow [these directions](https://cloud.google.com/looker/docs/r/develop/git-setup)
-to set up Git for your project. To edit LookML, expand the Develop drop-down and toggle on [Development Mode](https://cloud.google.com/looker/docs/r/terms/dev-mode). In
-Development Mode, changes you make to the LookML model exist only in your account until you commit the
-changes and push them to your production model.
+* Custom Segment Refinement: Fine-tune and uncover new product segments based on natural language descriptions.
+* Real-time Trend Adaptation: Discover and align product offerings with current trends.
+* Audience Targeting: Identify potential customers based on shared interests and purchasing patterns.
 
-<h2><span style="color:#2d7eea">Additional Resources</span></h2>
 
-To learn more about LookML and how to develop visit:
-- [Looker User Guide](https://looker.com/guide)
-- [Looker Help Center](https://help.looker.com)
-- [Looker University](https://training.looker.com/)
+## Getting Started
+
+### Prerequisites
+
+In Cloud Shell or a command line environment authenticated to `gcloud` run the following commands:
+
+1. BigQuery project with required permissions (*BigQuery, BigQuery Connection, Vertex AI*) and APIs enabled.
+
+    ```bash
+    gcloud services enable bigquery.googleapis.com bigqueryconnection.googleapis.com aiplatform.googleapis.com
+    ```
+2. Remote connection in BigQuery with the service account provisioned with the Vertex AI User role.
+
+    Export the following environment variables (filling them in for your specification:
+    ```bash
+    export REGION= &&
+    export PROJECT_ID= &&
+    export CONNECTION_ID= &&
+    export PROJECT_NUMBER=
+    ```
+   Run this to provision the BigQuery Remote Connection:
+   ```bash
+   bq mk --connection --location=$REGION --project_id=$PROJECT_ID \
+       --connection_type=CLOUD_RESOURCE $CONNECTION_ID
+   ```
+
+   Run this to return the Remote Connection Service Account:
+   ```bash
+   bq show --connection $PROJECT_ID.$REGION.$CONNECTION_ID
+   ```
+
+   Grab the Service Account ID from the above step & and grant it the Vertex AI User Role, replacing      `MEMBER` with that Service Account ID:
+   ```bash
+   gcloud projects add-iam-policy-binding '$PROJECT_NUMBER' --member='serviceAccount:MEMBER' --       role='roles/aiplatform.user' --condition=None
+   ```
+
+3. Looker instance with a BigQuery connection and the service account provisioned with the BigQuery Connection User role.
+
+   Grab the Service Account ID used in your Looker instance's connection to BigQuery and replace  `MEMBER`   with it:
+   ```bash
+   gcloud projects add-iam-policy-binding '$PROJECT_NUMBER' --member='serviceAccount:MEMBER' --          role='roles/bigquery.connectionUser' --condition=None
+   ```
+4. Developer access to a Looker instance.
+
+### Installation
+
+1. Clone this GitHub repository: [GitHub Repo Link]
+2. Create a LookML project within your Looker instance.
+3. Connect the LookML project to your cloned repository.
+
+## Tutorial
+
+A comprehensive tutorial can be found in the repository ([link to tutorial]). It covers:
+
+Configuring the block.
+Understanding the semantic search views.
+Creating and using the product embeddings model.
+Generating product embeddings.
+Indexing embeddings for efficient search.
+Creating visualizations based on search results.
+Next Steps & Enhancements
+
+Parameter Optimization: Explore strategies for fine-tuning semantic search parameters for specific datasets.
+Result Visualization: Experiment with ways to effectively visualize semantic search results within Looker dashboards.
+Embedding Refinement: Investigate how to improve the quality and relevance of data embeddings.
+---
+
+#### Want to contribute?
+We welcome contributions and feedback!  Please open issues and pull requests to help develop this block further.
+
+Let us know what you build!
+We're always excited to hear about new and innovative applications of semantic search within BigQuery.

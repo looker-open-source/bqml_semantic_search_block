@@ -55,16 +55,6 @@ view: order_items {
     );;
   }
 
-  # dimension: matched_user {
-  #   type: yesno
-  #   sql: ${user_id} IN (
-  #     SELECT DISTINCT ${user_id}
-  #     FROM ${product_semantic_search.SQL_TABLE_NAME} as product
-  #     LEFT OUTER JOIN ${order_items.SQL_TABLE_NAME} as orders
-  #       ON product.matched_product_id = orders.product_id
-  #   )
-  #   ;;
-  # }
   dimension: matched_user {
     type: yesno
     sql:

@@ -24,7 +24,6 @@ explore: audience_clustering {
     sql_on: ${audience_clustering.centroid_id} = ${audience_labeling.centroid_id} ;;
   }
 }
-# explore: product_semantic_search {}
 
 explore: product_semantic_search {
   join: order_items {
@@ -58,29 +57,4 @@ explore: order_items {
     relationship: many_to_one
     sql_on: ${order_items.user_id} = ${users.id} ;;
   }
-
-  # join: matched_item_revenue {
-  #   from: order_items
-  #   type: left_outer
-  #   relationship: one_to_many
-  #   sql_on: ${product_semantic_search.matched_product_id} = ${order_items.product_id} ;;
-  # }
-
-  # join: users {
-  #   type: left_outer
-  #   relationship: many_to_one
-  #   sql_on: ${matched_item_revenue.user_id} = ${users.id} ;;
-  # }
 }
-
-# explore: order_items {
-#   join: orders {
-#     relationship: many_to_one
-#     sql_on: ${orders.id} = ${order_items.order_id} ;;
-#   }
-#
-#   join: users {
-#     relationship: many_to_one
-#     sql_on: ${users.id} = ${orders.user_id} ;;
-#   }
-# }
