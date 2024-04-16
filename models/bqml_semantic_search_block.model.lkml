@@ -16,15 +16,8 @@ datagroup: ecomm_monthly {
   sql_trigger: SELECT MAX(MONTH(created_time)) FROM `bigquery-public-data.thelook_ecommerce.order_items` ;;
   max_cache_age: "32 hours"
 }
-#
-explore: audience_clustering {
-  join: audience_labeling {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${audience_clustering.centroid_id} = ${audience_labeling.centroid_id} ;;
-  }
-}
 
+### EXPLORE FOR MATCHED PRODUCTS ONLY ###
 explore: product_semantic_search {
   join: order_items {
     type: left_outer
@@ -45,6 +38,9 @@ explore: product_semantic_search {
 
 }
 
+### END ###
+
+### EXPLORE FOR MATCHED PRODUCTS AND ANY OTHER PRODUCTS ###
 explore: order_items {
   join: product_semantic_search {
     type: left_outer
@@ -58,3 +54,5 @@ explore: order_items {
     sql_on: ${order_items.user_id} = ${users.id} ;;
   }
 }
+
+### END ###

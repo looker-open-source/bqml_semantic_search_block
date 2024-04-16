@@ -6,7 +6,6 @@ Seamlessly integrate BigQuery's cutting-edge semantic search capabilities direct
 ### Key Features
 | Feature | Description |
 | --- | --- |
-| Effortless Setup | Get started quickly with well-documented installation and configuration|
 | Dynamic Natural Language Queries | Grant users the ability to search across any field or combination | of fields in Looker Explores using natural language.
 | Real-time Search | Receive search results in real time, enabling fast analysis and decision-making |
 | Customizable | Adapt the block to your specific dataset and fine-tune search parameters as needed |
@@ -88,19 +87,15 @@ In Cloud Shell or a command line environment authenticated to `gcloud` run the f
 
 ## Tutorial
 
-A comprehensive tutorial can be found in the repository ([link to tutorial]). It covers:
+A comprehensive tutorial can be found here ([link to tutorial]). It covers:
 
-Configuring the block.
-Understanding the semantic search views.
-Creating and using the product embeddings model.
-Generating product embeddings.
-Indexing embeddings for efficient search.
-Creating visualizations based on search results.
-Next Steps & Enhancements
-
-Parameter Optimization: Explore strategies for fine-tuning semantic search parameters for specific datasets.
-Result Visualization: Experiment with ways to effectively visualize semantic search results within Looker dashboards.
-Embedding Refinement: Investigate how to improve the quality and relevance of data embeddings.
+* Configuring the block.
+* Understanding the semantic search views.
+* Creating and using the product embeddings model.
+* Generating product embeddings.
+* Indexing embeddings for efficient search.
+* Creating visualizations based on search results.
+* Next Steps & Enhancements
 ---
 
 #### Want to contribute?
