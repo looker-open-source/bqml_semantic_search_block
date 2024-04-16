@@ -1,5 +1,7 @@
 # Looker x GenAI BigQuery Semantic Search Block
 
+![semantic-search](https://github.com/LukaFontanilla/bqml_semantic_search_block/assets/51471651/de8d8117-83c7-4abd-ba84-7595dfa200f2)
+
 ### Description
 Seamlessly integrate BigQuery's cutting-edge semantic search capabilities directly into your Looker instance. Empower users to perform dynamic, natural language similarity searches, unlocking innovative use cases on your enterprise data.
 
@@ -87,7 +89,7 @@ In Cloud Shell or a command line environment authenticated to `gcloud` run the f
 
 ## Tutorial
 
-A comprehensive tutorial can be found here ([link to tutorial]). It covers:
+A comprehensive tutorial can be found here (*Coming Soon*). It covers:
 
 * Configuring the block.
 * Understanding the semantic search views.
