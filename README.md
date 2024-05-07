@@ -41,6 +41,8 @@ Imagine using semantic search on an eCommerce dataset. Users can input natural l
 
 ### Prerequisites
 
+This block, in additiona to a Looker Instance, requires access to a BigQuery environment with a remote connection to Vertex AI established and a BQML model deployed
+
 In Cloud Shell or a command line environment authenticated to `gcloud` run the following commands:
 
 1. BigQuery project with required permissions (*BigQuery, BigQuery Connection, Vertex AI*) and APIs enabled.
@@ -68,7 +70,7 @@ In Cloud Shell or a command line environment authenticated to `gcloud` run the f
    bq show --connection $PROJECT_ID.$REGION.$CONNECTION_ID
    ```
 
-   Grab the Service Account ID from the above step & and grant it the Vertex AI User Role, replacing      `MEMBER` with that Service Account ID:
+   Grab the Service Account ID from the above step & and grant it the Vertex AI User Role, replacing `MEMBER` with that Service Account ID:
    ```bash
    gcloud projects add-iam-policy-binding '$PROJECT_NUMBER' --member='serviceAccount:MEMBER' --       role='roles/aiplatform.user' --condition=None
    ```
@@ -79,17 +81,25 @@ In Cloud Shell or a command line environment authenticated to `gcloud` run the f
    ```bash
    gcloud projects add-iam-policy-binding '$PROJECT_NUMBER' --member='serviceAccount:MEMBER' --          role='roles/bigquery.connectionUser' --condition=None
    ```
+4. From your BigQuery SQL Editor Run the following to provision the BQML Model. To note, please replace the `PROJECT_ID`, `DATASET_ID`, `MODEL_NAME`, `REGION`, & `CONNECTION_ID` with those of your environment. The [BigQuery docs here](https://cloud.google.com/bigquery/docs/generate-text) provide further information/a comprehensive tutorial on setting this up.
+   
+   ```sql
+    CREATE OR REPLACE MODEL
+    `PROJECT_ID.DATASET_ID.MODEL_NAME`
+    REMOTE WITH CONNECTION `PROJECT_ID.REGION.CONNECTION_ID`
+    OPTIONS (ENDPOINT = 'gemini-pro');
+   ```
 4. Developer access to a Looker instance.
 
 ### Installation
 
-1. Clone this GitHub repository: [GitHub Repo Link]
+1. Clone this GitHub repository.
 2. Create a LookML project within your Looker instance.
 3. Connect the LookML project to your cloned repository.
 
 ## Tutorial
 
-A comprehensive tutorial can be found here (*Coming Soon*). It covers:
+A comprehensive tutorial can be found [here](https://www.googlecloudcommunity.com/gc/Community-Blogs/Looker-x-GenAI-BigQuery-Semantic-Search-Block/ba-p/742268). It covers:
 
 * Configuring the block.
 * Understanding the semantic search views.
