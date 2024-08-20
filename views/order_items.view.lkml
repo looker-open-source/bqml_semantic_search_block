@@ -124,6 +124,7 @@ view: order_items {
     type: count_distinct
     filters: [matched_product: "yes"]
     sql: ${TABLE}.id ;;
+    drill_fields: [detail*]
   }
 
   # ----- Sets of fields for drilling ------
