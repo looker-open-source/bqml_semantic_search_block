@@ -139,6 +139,7 @@ view: product_semantic_search {
    </a>
   </head>
       </html> ;;
+    ### @cathuang to delete after demo
     link: {
       label: "Items Lookup"
       url: "https://demoeast.cloud.looker.com/dashboards/224?Product+Matches=500&Product+Description=90s+punk+rock&Created+Month=6+months"
