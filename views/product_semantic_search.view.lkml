@@ -113,7 +113,93 @@ view: product_semantic_search {
   dimension: matched_product_brand {
     type: string
     sql: ${TABLE}.matched_product_brand ;;
-  }
+    link: {
+        label: "Website"
+        url: "http://www.google.com/search?q={{ value | encode_uri }}+clothes&btnI"
+        icon_url: "http://www.google.com/s2/favicons?domain=www.{{ value | encode_uri }}.com"
+      }
+      link: {
+        label: "Facebook"
+        url: "http://www.google.com/search?q=site:facebook.com+{{ value | encode_uri }}+clothes&btnI"
+        icon_url: "https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg"
+      }
+      link: {
+        label: "{{value}} Analytics Dashboard"
+        url: "/dashboards/IOlEDOPQ12RFCyuUqk38wB?Brand%20Name={{ value | encode_uri }}"
+        icon_url: "https://www.seekpng.com/png/full/138-1386046_google-analytics-integration-analytics-icon-blue-png.png"
+      }
+
+      action: {
+        label: "Email Buying Department"
+        url: "https://desolate-refuge-53336.herokuapp.com/posts"
+        icon_url: "https://sendgrid.com/favicon.ico"
+        param: {
+          name: "some_auth_code"
+          value: "abc123456"
+        }
+        form_param: {
+          name: "Subject"
+          required: yes
+          default: "Order Status for {{ value }}"
+        }
+        form_param: {
+          name: "Body"
+          type: textarea
+          required: yes
+          default:
+          "Dear Valued Customer,
+
+          We appreciate your continue support and loyalty and wanted to show our appreciation. Offering a 15% discount on ALL products for our favorite brand {{ value }}.
+          Just used code {{ value | upcase }}-MANIA on your next checkout!
+
+          Your friends at the Look"
+        }
+      }
+      action: {
+        label: "Start Order Form"
+        url: "https://desolate-refuge-53336.herokuapp.com/posts"
+        icon_url: "https://www.google.com/s2/favicons?domain=www.adwords.google.com"
+        param: {
+          name: "some_auth_code"
+          value: "abc123456"
+        }
+        form_param: {
+          type: select
+          name: "Campaign Type"
+          option: { name: "Spend" label: "Spend" }
+          option: { name: "Leads" label: "Leads" }
+          option: { name: "Website Traffic" label: "Website Traffic" }
+          required: yes
+        }
+        form_param: {
+          name: "Campaign Name"
+          type: string
+          required: yes
+          default: "{{ value }} Campaign"
+        }
+
+        form_param: {
+          name: "Product Category"
+          type: string
+          required: yes
+          default: "{{ value }}"
+        }
+
+        form_param: {
+          name: "Budget"
+          type: string
+          required: yes
+        }
+
+        form_param: {
+          name: "Keywords"
+          type: string
+          required: yes
+          default: "{{ value }}"
+        }
+      }
+    }
+
 
   measure: explore_brands_button {
     type: count_distinct
