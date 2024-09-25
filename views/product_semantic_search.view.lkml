@@ -80,6 +80,7 @@ view: product_semantic_search {
 
   dimension: product_description_chosen {
     type: string
+    full_suggestions: no
     sql: {% parameter product_description %} ;;
   }
 
@@ -143,7 +144,8 @@ view: product_semantic_search {
     ### @cathuang to delete after demo
     link: {
       label: "Items Lookup"
-      url: "https://demoeast.cloud.looker.com/dashboards/224?Product+Matches=500&Product+Description=90s+punk+rock&Created+Month=6+months"
+      #url: "https://demoeast.cloud.looker.com/dashboards/224?Product+Matches=500&Product+Description=90s+punk+rock&Created+Month=6+months"
+      url: "https://demoeast.cloud.looker.com/dashboards/224?Product+Matches=500&Product+Description=gloves&Created+Month=6+months"
     }
   }
 
