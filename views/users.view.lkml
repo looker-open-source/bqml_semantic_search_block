@@ -117,6 +117,7 @@ view: users {
   dimension: zip_code {
     type: zipcode
     sql: ${postal_code} ;;
+    map_layer_name: us_counties_fips
   }
 
   dimension: state {

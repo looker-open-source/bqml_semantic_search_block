@@ -96,7 +96,8 @@ view: order_items {
 
   measure: average_sale_price {
     type: average
-    sql: ${sale_price} ;;  }
+    sql: ${sale_price} ;;
+    value_format_name:decimal_2}
 
   measure: matched_average_sale_price {
     type: average
