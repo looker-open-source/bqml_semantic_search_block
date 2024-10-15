@@ -118,7 +118,7 @@ view: order_items {
   }
   measure: count {
     type: count
-    drill_fields: [ products.name, products.brand, products.sku, products.department, products.sku, products.total_cost, products,count]
+    drill_fields: [ detail*]
   }
 
   measure: matched_count {
