@@ -146,12 +146,9 @@ view: product_semantic_search {
           type: textarea
           required: yes
           default:
-          "Dear Valued Customer,
+          "Hello,
 
-          We appreciate your continue support and loyalty and wanted to show our appreciation. Offering a 15% discount on ALL products for our favorite brand {{ value }}.
-          Just used code {{ value | upcase }}-MANIA on your next checkout!
-
-          Your friends at the Look"
+            Can we meet to discuss our contract with Smith & Nephew? We may want to conduct a Physician Preference Item review - it looks like their contract is up for renewal soon."
         }
       }
       action: {
@@ -164,24 +161,24 @@ view: product_semantic_search {
         }
         form_param: {
           type: select
-          name: "Campaign Type"
+          name: "Order Form Type"
           option: { name: "Spend" label: "Spend" }
           option: { name: "Leads" label: "Leads" }
           option: { name: "Website Traffic" label: "Website Traffic" }
           required: yes
         }
         form_param: {
-          name: "Campaign Name"
+          name: "Product Name"
           type: string
           required: yes
-          default: "{{ value }} Campaign"
+          default: "{{ matched_product._value }}"
         }
 
         form_param: {
           name: "Product Category"
           type: string
           required: yes
-          default: "{{ value }}"
+          default: "{{ matched_product_category._value }}"
         }
 
         form_param: {
@@ -191,7 +188,7 @@ view: product_semantic_search {
         }
 
         form_param: {
-          name: "Keywords"
+          name: "Order Value"
           type: string
           required: yes
           default: "{{ value }}"
